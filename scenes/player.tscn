@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://b7n1hok4x48m5"]
+
+[ext_resource type="Script" uid="uid://cakivjdqmvbmm" path="res://scripts/player.gd" id="1_cvnsp"]
+[ext_resource type="Resource" uid="uid://dahcrumosgxpk" path="res://resources/inventory/player_inventory.tres" id="2_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://byff8ydac0bbk" path="res://art/Adam.png" id="3_qlg0r"]
+[ext_resource type="Script" uid="uid://bi22dux8yg4gy" path="res://scripts/sprite_view.gd" id="4_qlg0r"]
+[ext_resource type="Script" uid="uid://c01ah8ohusrq5" path="res://scripts/camera_controller.gd" id="5_qlg0r"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuyoq"]
+atlas = ExtResource("3_qlg0r")
+region = Rect2(682, 500, 341, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjrip"]
+atlas = ExtResource("3_qlg0r")
+region = Rect2(341, 500, 341, 500)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_smehm"]
+atlas = ExtResource("3_qlg0r")
+region = Rect2(0, 500, 341, 500)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ur7pv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tuyoq")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fjrip")
+}],
+"loop": true,
+"name": &"walk_back",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_smehm")
+}],
+"loop": true,
+"name": &"walk_side",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cvnsp"]
+radius = 1.3759766
+height = 6.496826
+
+[node name="Player" type="CharacterBody3D" unique_id=1336671051]
+script = ExtResource("1_cvnsp")
+inv = ExtResource("2_qhqgy")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=2104901774]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+pixel_size = 0.05
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_ur7pv")
+animation = &"idle"
+frame_progress = 0.26967463
+script = ExtResource("4_qlg0r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1535255910]
+shape = SubResource("CapsuleShape3D_cvnsp")
+
+[node name="Camera_pivot" type="Node3D" parent="." unique_id=386555478]
+top_level = true
+
+[node name="Camera3D" type="Camera3D" parent="Camera_pivot" unique_id=988936378]
+transform = Transform3D(1, 0, 0, 0, 0.7073043, 0.70690936, 0, -0.70690936, 0.7073043, 0, 22.752304, 23.1748)
+current = true
+script = ExtResource("5_qlg0r")

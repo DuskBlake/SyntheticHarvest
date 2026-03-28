@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://du5vdfra5npu"]
+
+[ext_resource type="Script" uid="uid://xinc134pcl3p" path="res://scripts/world_resourse.gd" id="1_vplca"]
+[ext_resource type="Resource" uid="uid://druri65hy0ixk" path="res://resources/inventory/items/wood.tres" id="2_viusy"]
+[ext_resource type="ArrayMesh" uid="uid://y23jjnghf808" path="res://art/meshes/trunk.res" id="3_18mvg"]
+[ext_resource type="Script" uid="uid://crvk2we002jla" path="res://scripts/state_machine/state_machine.gd" id="4_ake3r"]
+[ext_resource type="ArrayMesh" uid="uid://dwadya68t52dx" path="res://art/meshes/leaves.res" id="4_dmmp0"]
+[ext_resource type="Script" uid="uid://fgiyuetgm0hk" path="res://scripts/state_machine/world_resourses/harvestready.gd" id="5_ake3r"]
+[ext_resource type="ArrayMesh" uid="uid://cnadbuyjuahll" path="res://art/meshes/stump.res" id="5_m26wl"]
+[ext_resource type="Script" uid="uid://ccm1ewmx6tjjr" path="res://scripts/state_machine/world_resourses/regrow.gd" id="7_dmmp0"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_18mvg"]
+height = 11.345703
+radius = 3.6850586
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_vplca"]
+height = 6.213516
+radius = 10.065918
+
+[node name="tree" type="Node3D" unique_id=2113670408]
+script = ExtResource("1_vplca")
+item = ExtResource("2_viusy")
+
+[node name="Stage1" type="MeshInstance3D" parent="." unique_id=1733505297]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+cast_shadow = 0
+mesh = ExtResource("3_18mvg")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Stage1" unique_id=436920120]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -1.3914521, 5.118022, 1.642498)
+cast_shadow = 0
+mesh = ExtResource("4_dmmp0")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Stage1" unique_id=646075891]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -2.3530505, 5.118022, -1.4221281)
+cast_shadow = 0
+mesh = ExtResource("4_dmmp0")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Stage1" unique_id=1827722701]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0.18794759, 5.780295, -0.021274144)
+cast_shadow = 0
+mesh = ExtResource("4_dmmp0")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Stage1" unique_id=338660787]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 1.8059328, 4.925804, -1.6431086)
+cast_shadow = 0
+mesh = ExtResource("4_dmmp0")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Stage1" unique_id=568920623]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 2.5685573, 4.3562393, 0.0038170815)
+cast_shadow = 0
+mesh = ExtResource("4_dmmp0")
+
+[node name="Stage2" type="MeshInstance3D" parent="." unique_id=2113063183]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+visible = false
+mesh = ExtResource("5_m26wl")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=431269411]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1086537356]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.6728516, 0)
+shape = SubResource("CylinderShape3D_18mvg")
+
+[node name="Iteract_trigger" type="Area3D" parent="." unique_id=2064720988]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Iteract_trigger" unique_id=194652966]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.104744, 0)
+shape = SubResource("CylinderShape3D_vplca")
+
+[node name="StateMachine" type="Node" parent="." unique_id=351890118 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("4_ake3r")
+initial_state = NodePath("HarvestReady")
+
+[node name="HarvestReady" type="Node" parent="StateMachine" unique_id=970177450 node_paths=PackedStringArray("world_resource")]
+script = ExtResource("5_ake3r")
+world_resource = NodePath("../..")
+metadata/_custom_type_script = "uid://fgiyuetgm0hk"
+
+[node name="Regrow" type="Node" parent="StateMachine" unique_id=1594485396 node_paths=PackedStringArray("world_resource")]
+script = ExtResource("7_dmmp0")
+world_resource = NodePath("../..")
+metadata/_custom_type_script = "uid://ccm1ewmx6tjjr"
+
+[connection signal="body_entered" from="Iteract_trigger" to="." method="_on_area_3d_body_entered"]

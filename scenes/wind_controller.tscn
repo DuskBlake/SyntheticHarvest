@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://dvvljlyihkefe"]
+
+[ext_resource type="Script" uid="uid://cy8hxoot1c367" path="res://scripts/wind_controller.gd" id="1_sgadd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mqi76"]
+albedo_color = Color(0.36078432, 1, 0.68235296, 1)
+emission = Color(0.8745098, 0.80784315, 0.15294118, 1)
+rim_enabled = true
+rim = 0.7
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_s25eq"]
+material = SubResource("StandardMaterial3D_mqi76")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_775v2"]
+albedo_color = Color(0.36078432, 1, 0.68235296, 1)
+rim_enabled = true
+rim = 0.7
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_t184n"]
+material = SubResource("StandardMaterial3D_775v2")
+top_radius = 0.0
+
+[node name="Wind_Controller" type="Node3D" unique_id=1018228189]
+script = ExtResource("1_sgadd")
+
+[node name="Vector_Mesh" type="Node3D" parent="." unique_id=1763584804]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Vector_Mesh" unique_id=1448761595]
+transform = Transform3D(-1.3113417e-08, 1.5, 0, -0.3, -6.556708e-08, 0, 0, 0, 0.3, -0.5, 0, 0)
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_s25eq")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Vector_Mesh" unique_id=760293789]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 2, 0, 0)
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_t184n")
