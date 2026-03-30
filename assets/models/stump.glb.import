@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://h634fq8lrmdr"
-path="res://.godot/imported/leaves.glb-75d4492e6ba8bfbc27fbc85620b717d7.scn"
+uid="uid://b0ewyx6ldfmw3"
+path="res://.godot/imported/stump.glb-eab95e8e0f708e33604c2cd4b0c17f30.scn"
 
 [deps]
 
-source_file="res://art/models/leaves.glb"
-dest_files=["res://.godot/imported/leaves.glb-75d4492e6ba8bfbc27fbc85620b717d7.scn"]
+source_file="res://assets/models/stump.glb"
+dest_files=["res://.godot/imported/stump.glb-eab95e8e0f708e33604c2cd4b0c17f30.scn"]
 
 [params]
 
@@ -39,14 +39,14 @@ materials/extract_format=0
 materials/extract_path=""
 _subresources={
 "meshes": {
-"leaves_Plane": {
+"stump_Cylinder": {
 "generate/lightmap_uv": 0,
 "generate/lods": 0,
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 20.0,
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://art/meshes/leaves.res",
-"save_to_file/path": "uid://v7qoetgm5yar"
+"save_to_file/fallback_path": "res://assets/meshes/Stump.res",
+"save_to_file/path": "uid://d35ppxfxbp38y"
 }
 }
 }

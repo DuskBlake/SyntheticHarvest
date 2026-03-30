@@ -11,6 +11,9 @@ func randomize_items():
 
 func enter():
 	randomize_items()
+	if world_resource.stage_1:
+		world_resource.stage_1.visible = true
+		world_resource.stage_2.visible = false
 
 func update(_delta: float):
 	if world_resource.player_in_area:

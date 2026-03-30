@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://bu1hlv08h7mb5"]
+
+[ext_resource type="Texture2D" uid="uid://hbmrlbhboa1k" path="res://assets/Textures/tree/tree_texture.tres" id="1_dlkpb"]
+
+[resource]
+albedo_color = Color(0.92941177, 0, 0.20784314, 1)
+albedo_texture = ExtResource("1_dlkpb")

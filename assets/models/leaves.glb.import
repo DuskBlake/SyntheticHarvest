@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://c5ffbgwym43s2"
-path="res://.godot/imported/grass.glb-3f1abe87fdcd807ac98ca2f20a4769e1.scn"
+uid="uid://h634fq8lrmdr"
+path="res://.godot/imported/leaves.glb-e3efcccb9d0bf37319481421f13a43d6.scn"
 
 [deps]
 
-source_file="res://art/models/grass.glb"
-dest_files=["res://.godot/imported/grass.glb-3f1abe87fdcd807ac98ca2f20a4769e1.scn"]
+source_file="res://assets/models/leaves.glb"
+dest_files=["res://.godot/imported/leaves.glb-e3efcccb9d0bf37319481421f13a43d6.scn"]
 
 [params]
 
@@ -39,14 +39,14 @@ materials/extract_format=0
 materials/extract_path=""
 _subresources={
 "meshes": {
-"grass_Plane_012": {
+"leaves_Plane": {
 "generate/lightmap_uv": 0,
 "generate/lods": 0,
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 20.0,
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://art/meshes/grass.res",
-"save_to_file/path": "uid://dhb0xnpp3gvl8"
+"save_to_file/fallback_path": "res://assets/meshes/leaves.res",
+"save_to_file/path": "uid://v7qoetgm5yar"
 }
 }
 }

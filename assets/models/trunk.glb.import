@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b0ewyx6ldfmw3"
-path="res://.godot/imported/stump.glb-5af9e96418a82c8ba68f811fbbcb61b9.scn"
+uid="uid://vjq6pfrdadn5"
+path="res://.godot/imported/trunk.glb-be3d65d1a69b669dc01a566fa9fc4532.scn"
 
 [deps]
 
-source_file="res://art/models/stump.glb"
-dest_files=["res://.godot/imported/stump.glb-5af9e96418a82c8ba68f811fbbcb61b9.scn"]
+source_file="res://assets/models/trunk.glb"
+dest_files=["res://.godot/imported/trunk.glb-be3d65d1a69b669dc01a566fa9fc4532.scn"]
 
 [params]
 
@@ -39,14 +39,14 @@ materials/extract_format=0
 materials/extract_path=""
 _subresources={
 "meshes": {
-"stump_Cylinder": {
+"trunk_Cylinder": {
 "generate/lightmap_uv": 0,
 "generate/lods": 0,
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 20.0,
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://art/meshes/Stump.res",
-"save_to_file/path": "uid://d35ppxfxbp38y"
+"save_to_file/fallback_path": "res://assets/meshes/trunk.res",
+"save_to_file/path": "uid://es4653twkuuj"
 }
 }
 }

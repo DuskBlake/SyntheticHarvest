@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://vjq6pfrdadn5"
-path="res://.godot/imported/trunk.glb-c253c88ca222de31288a1887d7dd5be5.scn"
+uid="uid://c5ffbgwym43s2"
+path="res://.godot/imported/grass.glb-7b2cc5bb8ebe3d27d15a269ca3bfab9f.scn"
 
 [deps]
 
-source_file="res://art/models/trunk.glb"
-dest_files=["res://.godot/imported/trunk.glb-c253c88ca222de31288a1887d7dd5be5.scn"]
+source_file="res://assets/models/grass.glb"
+dest_files=["res://.godot/imported/grass.glb-7b2cc5bb8ebe3d27d15a269ca3bfab9f.scn"]
 
 [params]
 
@@ -39,14 +39,14 @@ materials/extract_format=0
 materials/extract_path=""
 _subresources={
 "meshes": {
-"trunk_Cylinder": {
+"grass_Plane_012": {
 "generate/lightmap_uv": 0,
 "generate/lods": 0,
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 20.0,
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://art/meshes/trunk.res",
-"save_to_file/path": "uid://es4653twkuuj"
+"save_to_file/fallback_path": "res://assets/meshes/grass.res",
+"save_to_file/path": "uid://dhb0xnpp3gvl8"
 }
 }
 }

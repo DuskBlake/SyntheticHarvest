@@ -1,0 +1,14 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://emaup5rf6ygg"]
+
+[ext_resource type="Shader" uid="uid://ccpmvwpw0qdiw" path="res://shaders/grass.gdshader" id="1_gjj3c"]
+[ext_resource type="Texture2D" uid="uid://si782k4fryh3" path="res://assets/Textures/grass/grass_noise.tres" id="2_c82c8"]
+[ext_resource type="Texture2D" uid="uid://0p2664dv8e8x" path="res://assets/Textures/grass/wind_noise.tres" id="3_8xqkc"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_gjj3c")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/color2 = Color(1, 0.09749334, 0.685022, 1)
+shader_parameter/noise = ExtResource("2_c82c8")
+shader_parameter/noiseScale = 20.0
+shader_parameter/wind_noise_tx = ExtResource("3_8xqkc")
