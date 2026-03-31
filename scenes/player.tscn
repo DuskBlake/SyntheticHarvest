@@ -51,6 +51,7 @@ height = 6.496826
 
 [node name="Player" type="CharacterBody3D" unique_id=1336671051]
 script = ExtResource("1_cvnsp")
+speed = 7.0
 inv = ExtResource("2_qhqgy")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=2104901774]
