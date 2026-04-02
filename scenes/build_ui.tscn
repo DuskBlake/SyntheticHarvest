@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://bal8mjv50gdgs"]
+
+[ext_resource type="Script" uid="uid://bjuvxwrq4c2f" path="res://scripts/build_ui.gd" id="1_uej6l"]
+[ext_resource type="Resource" uid="uid://druri65hy0ixk" path="res://resources/inventory/items/wood.tres" id="2_xa1c1"]
+
+[node name="Build_UI" type="Control" unique_id=705973627 node_paths=PackedStringArray("button1", "button2", "button3") groups=["Build_UI"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uej6l")
+button1 = NodePath("Panel/HBoxContainer/Extractor")
+button2 = NodePath("Panel/HBoxContainer/Wall")
+button3 = NodePath("Panel/HBoxContainer/Turret")
+wood = ExtResource("2_xa1c1")
+
+[node name="Panel" type="Panel" parent="." unique_id=1508845183]
+self_modulate = Color(1, 1, 1, 0.3137255)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -500.0
+offset_top = -180.0
+offset_right = 500.0
+offset_bottom = -29.999756
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel" unique_id=930062561]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -75.0
+offset_right = 500.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Extractor" type="Button" parent="Panel/HBoxContainer" unique_id=457300559]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 24
+text = "Extractor
+x3 wood"
+
+[node name="Wall" type="Button" parent="Panel/HBoxContainer" unique_id=1321042748]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 24
+disabled = true
+text = "Wall
+x5 wood"
+
+[node name="Turret" type="Button" parent="Panel/HBoxContainer" unique_id=586922043]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 24
+disabled = true
+text = "Turret
+x8 wood"
+
+[connection signal="button_down" from="Panel/HBoxContainer/Extractor" to="." method="_on_extractor_button_down"]
+[connection signal="button_down" from="Panel/HBoxContainer/Wall" to="." method="_on_wall_button_down"]

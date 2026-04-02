@@ -1,0 +1,19 @@
+extends StaticBody3D
+
+@export var collision: CollisionShape3D 
+@export var mesh: MeshInstance3D
+@export var trigger: CollisionShape3D
+@export var health: ProgressBar
+
+var placed: bool = false
+var player_in_area: bool
+
+
+func _on_ui_area_body_entered(body: Node3D) -> void:
+	if body.is_in_group("Player"):
+		player_in_area = true
+
+
+func _on_ui_area_body_exited(body: Node3D) -> void:
+	if body.is_in_group("Player"):
+		player_in_area = false

@@ -2,9 +2,12 @@
 
 [ext_resource type="Script" uid="uid://b83oywnpvucrv" path="res://scripts/inventory/inventory_slot.gd" id="1_1qrra"]
 [ext_resource type="Script" uid="uid://bkqdyk0hwr80m" path="res://scripts/inventory/inventory.gd" id="2_ptr4k"]
+[ext_resource type="Resource" uid="uid://druri65hy0ixk" path="res://resources/inventory/items/wood.tres" id="3_ny04u"]
 
 [sub_resource type="Resource" id="Resource_1qrra"]
 script = ExtResource("1_1qrra")
+item = ExtResource("3_ny04u")
+amount = 99
 metadata/_custom_type_script = "uid://b83oywnpvucrv"
 
 [sub_resource type="Resource" id="Resource_ny04u"]

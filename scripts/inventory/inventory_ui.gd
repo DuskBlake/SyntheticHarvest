@@ -10,7 +10,7 @@ func _ready() -> void:
 	update_slots()
 	close()
 
-func update_slots():
+func update_slots() -> void:
 	for slot_index in range(min(inv.slots.size(),slots.size())):
 		slots[slot_index].update(inv.slots[slot_index])
 

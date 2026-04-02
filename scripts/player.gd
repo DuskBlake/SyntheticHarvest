@@ -10,7 +10,7 @@ extends CharacterBody3D
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-func _physics_process(delta: float) -> void:	
+func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 	
@@ -25,5 +25,5 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	camera_pivot.position = lerp(camera_pivot.position, position + (direction * cam_offset), 0.05)
 
-func collect(item):
+func collect(item)-> void:
 	inv.insert(item)

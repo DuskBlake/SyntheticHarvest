@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://b2r5u562taba3"]
+
+[ext_resource type="Script" uid="uid://dpysdtieofuv2" path="res://scripts/state_machine/Buildings/placing.gd" id="1_01spe"]
+[ext_resource type="Script" uid="uid://b0p1hnhc4rwmi" path="res://scripts/building.gd" id="1_o7god"]
+[ext_resource type="Material" uid="uid://rpq17v05wcdc" path="res://assets/materials/invalid_pos.tres" id="2_7cl7c"]
+[ext_resource type="Script" uid="uid://crvk2we002jla" path="res://scripts/state_machine/state_machine.gd" id="2_kljyq"]
+[ext_resource type="Script" uid="uid://bpxfmm15wltf2" path="res://scripts/state_machine/Buildings/placed.gd" id="4_3n3yk"]
+[ext_resource type="Material" uid="uid://bagfuxxoeyle5" path="res://assets/materials/valid_pos.tres" id="5_3y8vq"]
+[ext_resource type="Material" uid="uid://bu1hlv08h7mb5" path="res://assets/materials/tree.tres" id="5_h2kmk"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_3y8vq"]
+viewport_path = NodePath("InteractionUI/SubViewport")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3y8vq"]
+size = Vector3(8, 6, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vbxu8"]
+size = Vector3(10, 6, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_57vds"]
+size = Vector3(7, 6, 7)
+
+[sub_resource type="BoxMesh" id="BoxMesh_01spe"]
+size = Vector3(8, 20, 8)
+
+[node name="Extractor" type="StaticBody3D" unique_id=1026650262 node_paths=PackedStringArray("collision", "mesh", "trigger", "health") groups=["Building", "Extractor"]]
+script = ExtResource("1_o7god")
+collision = NodePath("Mesh")
+mesh = NodePath("MeshInstance3D")
+trigger = NodePath("Area3D/Trigger")
+health = NodePath("InteractionUI/SubViewport/VBoxContainer/ProgressBar")
+
+[node name="InteractionUI" type="Sprite3D" parent="." unique_id=1194859587]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.21, 0)
+visible = false
+sorting_offset = 5.0
+billboard = 1
+no_depth_test = true
+texture = SubResource("ViewportTexture_3y8vq")
+
+[node name="SubViewport" type="SubViewport" parent="InteractionUI" unique_id=2002452307]
+transparent_bg = true
+size = Vector2i(1919, 1080)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InteractionUI/SubViewport" unique_id=1751593135]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -959.5
+offset_top = -540.0
+offset_right = 960.5
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="InteractionUI/SubViewport/VBoxContainer" unique_id=631756229]
+self_modulate = Color(0, 1, 0, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 124
+value = 100.0
+
+[node name="Mesh" type="CollisionShape3D" parent="." unique_id=1393656575]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+shape = SubResource("BoxShape3D_3y8vq")
+
+[node name="UIArea" type="Area3D" parent="." unique_id=1030153454]
+
+[node name="UIArea" type="CollisionShape3D" parent="UIArea" unique_id=1080298732]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+shape = SubResource("BoxShape3D_vbxu8")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1538549296]
+
+[node name="Trigger" type="CollisionShape3D" parent="Area3D" unique_id=1959747370]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+shape = SubResource("BoxShape3D_57vds")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1548575925]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_01spe")
+surface_material_override/0 = ExtResource("5_h2kmk")
+
+[node name="StateMachine" type="Node" parent="." unique_id=652200741 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_kljyq")
+initial_state = NodePath("Placing")
+
+[node name="Placing" type="Node" parent="StateMachine" unique_id=196873893 node_paths=PackedStringArray("building")]
+script = ExtResource("1_01spe")
+building = NodePath("../..")
+valid_material = ExtResource("5_3y8vq")
+invalid_material = ExtResource("2_7cl7c")
+metadata/_custom_type_script = "uid://dpysdtieofuv2"
+
+[node name="Timer" type="Timer" parent="StateMachine/Placing" unique_id=1694022580]
+wait_time = 0.5
+
+[node name="Placed" type="Node" parent="StateMachine" unique_id=841009395 node_paths=PackedStringArray("building", "ui")]
+script = ExtResource("4_3n3yk")
+building = NodePath("../..")
+placed = ExtResource("5_h2kmk")
+ui = NodePath("../../InteractionUI")
+metadata/_custom_type_script = "uid://bpxfmm15wltf2"
+
+[connection signal="body_entered" from="UIArea" to="." method="_on_ui_area_body_entered"]
+[connection signal="body_exited" from="UIArea" to="." method="_on_ui_area_body_exited"]
+[connection signal="body_entered" from="Area3D" to="StateMachine/Placing" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="StateMachine/Placing" method="_on_area_3d_body_exited"]
+[connection signal="timeout" from="StateMachine/Placing/Timer" to="StateMachine/Placing" method="_on_timer_timeout"]

@@ -7,16 +7,17 @@ class_name HarvestReady
 
 var item_amount: int
 
-func randomize_items():
+func randomize_items() -> void:
 	item_amount = randi_range(3, 7)
 
-func enter():
+func enter() -> void:
 	randomize_items()
 	world_resource.label.text = "Harvest (E)"
 	world_resource.stage_1.visible = true
 	world_resource.stage_2.visible = false
+	world_resource.progress_bar.value = 0
 
-func update(_delta: float):
+func update(_delta: float) -> void:
 	if world_resource.player_in_area:
 		world_resource.interaction_ui.visible = true
 		if Input.is_action_pressed("interact"):

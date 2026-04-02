@@ -6,7 +6,7 @@ signal update
 
 @export var slots: Array[InvSlot]
 
-func insert(item: InvItem):
+func insert(item: InvItem) -> void:
 	var itemslots = slots.filter(func(slot): return slot.item == item)
 	if !itemslots.is_empty():
 		itemslots[0].amount += 1
