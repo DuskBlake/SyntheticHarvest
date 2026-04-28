@@ -2,8 +2,12 @@
 
 [ext_resource type="Script" uid="uid://bjuvxwrq4c2f" path="res://scripts/build_ui.gd" id="1_uej6l"]
 [ext_resource type="Resource" uid="uid://druri65hy0ixk" path="res://resources/inventory/items/wood.tres" id="2_xa1c1"]
+[ext_resource type="PackedScene" uid="uid://b2r5u562taba3" path="res://scenes/buildings/extractor.tscn" id="3_y05bs"]
+[ext_resource type="PackedScene" uid="uid://doggvspgulon5" path="res://scenes/buildings/wall.tscn" id="4_8jlwu"]
+[ext_resource type="PackedScene" uid="uid://d0w412ag1on00" path="res://scenes/buildings/turret.tscn" id="5_wop4d"]
+[ext_resource type="PackedScene" uid="uid://6cm4nnbwqgc7" path="res://scenes/buildings/spikes.tscn" id="6_8jlwu"]
 
-[node name="Build_UI" type="Control" unique_id=705973627 node_paths=PackedStringArray("button1", "button2", "button3") groups=["Build_UI"]]
+[node name="Build_UI" type="Control" unique_id=705973627 node_paths=PackedStringArray("button1", "button2", "button3", "button4") groups=["Build_UI"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,7 +18,9 @@ script = ExtResource("1_uej6l")
 button1 = NodePath("Panel/HBoxContainer/Extractor")
 button2 = NodePath("Panel/HBoxContainer/Wall")
 button3 = NodePath("Panel/HBoxContainer/Turret")
+button4 = NodePath("Panel/HBoxContainer/Spikes")
 wood = ExtResource("2_xa1c1")
+buildings = Array[PackedScene]([ExtResource("3_y05bs"), ExtResource("4_8jlwu"), ExtResource("5_wop4d"), ExtResource("6_8jlwu")])
 
 [node name="Panel" type="Panel" parent="." unique_id=1508845183]
 self_modulate = Color(1, 1, 1, 0.3137255)
@@ -75,5 +81,18 @@ disabled = true
 text = "Turret
 x8 wood"
 
+[node name="Spikes" type="Button" parent="Panel/HBoxContainer" unique_id=1115802906]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 24
+disabled = true
+text = "Spikes
+x3 wood
+"
+
 [connection signal="button_down" from="Panel/HBoxContainer/Extractor" to="." method="_on_extractor_button_down"]
 [connection signal="button_down" from="Panel/HBoxContainer/Wall" to="." method="_on_wall_button_down"]
+[connection signal="button_down" from="Panel/HBoxContainer/Turret" to="." method="_on_turret_button_down"]
+[connection signal="button_down" from="Panel/HBoxContainer/Spikes" to="." method="_on_spikes_button_down"]

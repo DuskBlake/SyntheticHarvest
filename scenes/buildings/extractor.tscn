@@ -1,12 +1,14 @@
 [gd_scene format=3 uid="uid://b2r5u562taba3"]
 
-[ext_resource type="Script" uid="uid://dpysdtieofuv2" path="res://scripts/state_machine/Buildings/placing.gd" id="1_01spe"]
-[ext_resource type="Script" uid="uid://b0p1hnhc4rwmi" path="res://scripts/building.gd" id="1_o7god"]
-[ext_resource type="Material" uid="uid://rpq17v05wcdc" path="res://assets/materials/invalid_pos.tres" id="2_7cl7c"]
-[ext_resource type="Script" uid="uid://crvk2we002jla" path="res://scripts/state_machine/state_machine.gd" id="2_kljyq"]
-[ext_resource type="Script" uid="uid://bpxfmm15wltf2" path="res://scripts/state_machine/Buildings/placed.gd" id="4_3n3yk"]
-[ext_resource type="Material" uid="uid://bagfuxxoeyle5" path="res://assets/materials/valid_pos.tres" id="5_3y8vq"]
-[ext_resource type="Material" uid="uid://bu1hlv08h7mb5" path="res://assets/materials/tree.tres" id="5_h2kmk"]
+[ext_resource type="Script" uid="uid://b0p1hnhc4rwmi" path="res://scripts/building.gd" id="1_87gqf"]
+[ext_resource type="Script" uid="uid://bqg6ah0c0tugn" path="res://scripts/inventory/inventory_item.gd" id="2_8wvab"]
+[ext_resource type="Resource" uid="uid://druri65hy0ixk" path="res://resources/inventory/items/wood.tres" id="3_u33a0"]
+[ext_resource type="Material" uid="uid://bu1hlv08h7mb5" path="res://assets/materials/tree.tres" id="4_eyhl3"]
+[ext_resource type="Script" uid="uid://crvk2we002jla" path="res://scripts/state_machine/state_machine.gd" id="5_amttv"]
+[ext_resource type="Script" uid="uid://dpysdtieofuv2" path="res://scripts/state_machine/Buildings/placing.gd" id="6_qsq1b"]
+[ext_resource type="Material" uid="uid://bagfuxxoeyle5" path="res://assets/materials/valid_pos.tres" id="7_1aox2"]
+[ext_resource type="Material" uid="uid://rpq17v05wcdc" path="res://assets/materials/invalid_pos.tres" id="8_20agb"]
+[ext_resource type="Script" uid="uid://bpxfmm15wltf2" path="res://scripts/state_machine/Buildings/placed.gd" id="9_y2ifk"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_3y8vq"]
 viewport_path = NodePath("InteractionUI/SubViewport")
@@ -24,11 +26,14 @@ size = Vector3(7, 6, 7)
 size = Vector3(8, 20, 8)
 
 [node name="Extractor" type="StaticBody3D" unique_id=1026650262 node_paths=PackedStringArray("collision", "mesh", "trigger", "health") groups=["Building", "Extractor"]]
-script = ExtResource("1_o7god")
+script = ExtResource("1_87gqf")
 collision = NodePath("Mesh")
 mesh = NodePath("MeshInstance3D")
 trigger = NodePath("Area3D/Trigger")
 health = NodePath("InteractionUI/SubViewport/VBoxContainer/ProgressBar")
+material_cost = Dictionary[ExtResource("2_8wvab"), int]({
+ExtResource("3_u33a0"): 3
+})
 
 [node name="InteractionUI" type="Sprite3D" parent="." unique_id=1194859587]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.21, 0)
@@ -73,6 +78,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 shape = SubResource("BoxShape3D_vbxu8")
 
 [node name="Area3D" type="Area3D" parent="." unique_id=1538549296]
+collision_mask = 3
 
 [node name="Trigger" type="CollisionShape3D" parent="Area3D" unique_id=1959747370]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
@@ -82,26 +88,26 @@ shape = SubResource("BoxShape3D_57vds")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
 cast_shadow = 0
 mesh = SubResource("BoxMesh_01spe")
-surface_material_override/0 = ExtResource("5_h2kmk")
+surface_material_override/0 = ExtResource("4_eyhl3")
 
 [node name="StateMachine" type="Node" parent="." unique_id=652200741 node_paths=PackedStringArray("initial_state")]
-script = ExtResource("2_kljyq")
+script = ExtResource("5_amttv")
 initial_state = NodePath("Placing")
 
 [node name="Placing" type="Node" parent="StateMachine" unique_id=196873893 node_paths=PackedStringArray("building")]
-script = ExtResource("1_01spe")
+script = ExtResource("6_qsq1b")
 building = NodePath("../..")
-valid_material = ExtResource("5_3y8vq")
-invalid_material = ExtResource("2_7cl7c")
+valid_material = ExtResource("7_1aox2")
+invalid_material = ExtResource("8_20agb")
 metadata/_custom_type_script = "uid://dpysdtieofuv2"
 
 [node name="Timer" type="Timer" parent="StateMachine/Placing" unique_id=1694022580]
 wait_time = 0.5
 
 [node name="Placed" type="Node" parent="StateMachine" unique_id=841009395 node_paths=PackedStringArray("building", "ui")]
-script = ExtResource("4_3n3yk")
+script = ExtResource("9_y2ifk")
 building = NodePath("../..")
-placed = ExtResource("5_h2kmk")
+placed = ExtResource("4_eyhl3")
 ui = NodePath("../../InteractionUI")
 metadata/_custom_type_script = "uid://bpxfmm15wltf2"
 

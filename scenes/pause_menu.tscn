@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://ckt54le5fgln1"]
+
+[ext_resource type="Script" uid="uid://bejnov8y801oa" path="res://scripts/pause_menu.gd" id="1_n87rw"]
+
+[node name="PauseMenu" type="Control" unique_id=998970013]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_n87rw")
+hight = Array[int]([1920, 1280, 1152])
+width = Array[int]([1080, 720, 648])
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1684718298]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -88.0
+offset_top = -25.0
+offset_right = 88.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer" unique_id=538855556]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+button_pressed = true
+text = "Fullscreen"
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer" unique_id=1334118083]
+layout_mode = 2
+selected = 2
+item_count = 3
+popup/item_0/text = "1920x1080"
+popup/item_0/id = 0
+popup/item_1/text = "1280x720"
+popup/item_1/id = 1
+popup/item_2/text = "1152x648"
+popup/item_2/id = 2
+
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=1849453321]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Quit Game"
+
+[connection signal="toggled" from="VBoxContainer/CheckBox" to="." method="_on_check_box_toggled"]
+[connection signal="item_selected" from="VBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]

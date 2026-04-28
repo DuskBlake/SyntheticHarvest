@@ -23,7 +23,15 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		velocity.z = move_toward(velocity.z, 0, speed)
 	move_and_slide()
-	camera_pivot.position = lerp(camera_pivot.position, position + (direction * cam_offset), 0.05)
+	if !CameraControl.first_person:
+		camera_pivot.position = lerp(camera_pivot.position, position + (direction * cam_offset), 0.05)
+	else:
+		camera_pivot.position = position
+	
+	if Input.is_action_just_pressed("sprint"):
+		speed *= 2.3
+	elif Input.is_action_just_released("sprint"):
+		speed /= 2.3
 
 func collect(item)-> void:
 	inv.insert(item)

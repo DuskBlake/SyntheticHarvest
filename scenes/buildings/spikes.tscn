@@ -1,0 +1,134 @@
+[gd_scene format=3 uid="uid://6cm4nnbwqgc7"]
+
+[ext_resource type="Script" uid="uid://b0p1hnhc4rwmi" path="res://scripts/building.gd" id="1_d77p4"]
+[ext_resource type="Script" uid="uid://bqg6ah0c0tugn" path="res://scripts/inventory/inventory_item.gd" id="2_nyr5e"]
+[ext_resource type="Resource" uid="uid://druri65hy0ixk" path="res://resources/inventory/items/wood.tres" id="3_jbb0f"]
+[ext_resource type="Material" uid="uid://bu1hlv08h7mb5" path="res://assets/materials/tree.tres" id="5_br8oj"]
+[ext_resource type="Script" uid="uid://crvk2we002jla" path="res://scripts/state_machine/state_machine.gd" id="6_swvl4"]
+[ext_resource type="Script" uid="uid://dpysdtieofuv2" path="res://scripts/state_machine/Buildings/placing.gd" id="7_xer1y"]
+[ext_resource type="Material" uid="uid://bagfuxxoeyle5" path="res://assets/materials/valid_pos.tres" id="8_whcm6"]
+[ext_resource type="Material" uid="uid://rpq17v05wcdc" path="res://assets/materials/invalid_pos.tres" id="9_k5lpi"]
+[ext_resource type="Script" uid="uid://bpxfmm15wltf2" path="res://scripts/state_machine/Buildings/placed.gd" id="10_8ml7e"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_yu87e"]
+viewport_path = NodePath("InteractionUI/SubViewport")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yu87e"]
+size = Vector3(8, 1, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qnv8b"]
+size = Vector3(9, 3, 9)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_57vds"]
+size = Vector3(7, 2, 7)
+
+[sub_resource type="BoxMesh" id="BoxMesh_m18em"]
+
+[node name="Spikes" type="StaticBody3D" unique_id=1026650262 node_paths=PackedStringArray("collision", "mesh", "trigger", "health") groups=["Building"]]
+collision_layer = 2
+script = ExtResource("1_d77p4")
+collision = NodePath("Mesh")
+mesh = NodePath("MeshInstance3D")
+trigger = NodePath("Trigger/Trigger")
+health = NodePath("InteractionUI/SubViewport/VBoxContainer/ProgressBar")
+material_cost = Dictionary[ExtResource("2_nyr5e"), int]({
+ExtResource("3_jbb0f"): 3
+})
+
+[node name="InteractionUI" type="Sprite3D" parent="." unique_id=1226939051]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.21, 0)
+visible = false
+sorting_offset = 5.0
+billboard = 1
+no_depth_test = true
+texture = SubResource("ViewportTexture_yu87e")
+
+[node name="SubViewport" type="SubViewport" parent="InteractionUI" unique_id=1642849261]
+transparent_bg = true
+size = Vector2i(1919, 1080)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InteractionUI/SubViewport" unique_id=2100577898]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -959.5
+offset_top = -540.0
+offset_right = 960.5
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="InteractionUI/SubViewport/VBoxContainer" unique_id=458620640]
+self_modulate = Color(0, 1, 0, 1)
+layout_mode = 2
+theme_override_font_sizes/font_size = 124
+value = 100.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="InteractionUI/SubViewport/VBoxContainer" unique_id=1493535478]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="InteractionUI/SubViewport/VBoxContainer/HBoxContainer" unique_id=749768396]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 150
+text = "Repair (F)"
+
+[node name="Label2" type="Label" parent="InteractionUI/SubViewport/VBoxContainer/HBoxContainer" unique_id=877485729]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 150
+text = "Remove (X)"
+
+[node name="Mesh" type="CollisionShape3D" parent="." unique_id=1393656575]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_yu87e")
+
+[node name="UIArea" type="Area3D" parent="." unique_id=143680422]
+
+[node name="UIArea" type="CollisionShape3D" parent="UIArea" unique_id=1836182468]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("BoxShape3D_qnv8b")
+
+[node name="Trigger" type="Area3D" parent="." unique_id=1538549296]
+collision_mask = 3
+
+[node name="Trigger" type="CollisionShape3D" parent="Trigger" unique_id=1959747370]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_57vds")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1548575925]
+transform = Transform3D(8, 0, 0, 0, 1, 0, 0, 0, 8, 0, 0.5, 0)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_m18em")
+surface_material_override/0 = ExtResource("5_br8oj")
+
+[node name="StateMachine" type="Node" parent="." unique_id=2099496149 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("6_swvl4")
+initial_state = NodePath("Placing")
+
+[node name="Placing" type="Node" parent="StateMachine" unique_id=741663099 node_paths=PackedStringArray("building")]
+script = ExtResource("7_xer1y")
+building = NodePath("../..")
+valid_material = ExtResource("8_whcm6")
+invalid_material = ExtResource("9_k5lpi")
+metadata/_custom_type_script = "uid://dpysdtieofuv2"
+
+[node name="Timer" type="Timer" parent="StateMachine/Placing" unique_id=1038757920]
+wait_time = 0.5
+
+[node name="Placed" type="Node" parent="StateMachine" unique_id=797993399 node_paths=PackedStringArray("building", "ui")]
+script = ExtResource("10_8ml7e")
+building = NodePath("../..")
+placed = ExtResource("5_br8oj")
+ui = NodePath("../../InteractionUI")
+metadata/_custom_type_script = "uid://bpxfmm15wltf2"
+
+[connection signal="body_entered" from="UIArea" to="." method="_on_ui_area_body_entered"]
+[connection signal="body_exited" from="UIArea" to="." method="_on_ui_area_body_exited"]
+[connection signal="body_entered" from="Trigger" to="StateMachine/Placing" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Trigger" to="StateMachine/Placing" method="_on_area_3d_body_exited"]
+[connection signal="timeout" from="StateMachine/Placing/Timer" to="StateMachine/Placing" method="_on_timer_timeout"]

@@ -2,38 +2,61 @@
 
 [ext_resource type="Script" uid="uid://06lhk37o5t63" path="res://scripts/inventory/inventory_ui_slot.gd" id="1_hmc0w"]
 [ext_resource type="Texture2D" uid="uid://yjp22vk0yyty" path="res://assets/inventory/Inventory Slot.png" id="1_mouc6"]
+[ext_resource type="Texture2D" uid="uid://dt6fet7o81bb5" path="res://assets/inventory/wood_PH.png" id="3_fqrda"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_fqrda"]
+font_size = 20
 
 [node name="Inventory_UI_Slot" type="Panel" unique_id=396591209]
 self_modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(90, 90)
-offset_right = 90.0
-offset_bottom = 90.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1152.0
+offset_bottom = -648.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_hmc0w")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=879310298]
-scale = Vector2(0.9, 0.9)
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1467447013]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("1_mouc6")
-centered = false
+expand_mode = 4
 
-[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1672155737]
-custom_minimum_size = Vector2(90, 90)
-layout_mode = 0
-offset_right = 90.0
-offset_bottom = 90.0
-
-[node name="Panel" type="Panel" parent="CenterContainer" unique_id=1374929609]
-layout_mode = 2
-
-[node name="item_display" type="Sprite2D" parent="CenterContainer/Panel" unique_id=2086856981]
-
-[node name="Label" type="Label" parent="CenterContainer/Panel" unique_id=984828836]
-layout_mode = 0
-offset_left = -8.000003
-offset_top = 21.0
-offset_right = 335.0
-offset_bottom = 430.0
-scale = Vector2(0.05, 0.05)
-theme_override_font_sizes/font_size = 300
+[node name="Label" type="Label" parent="." unique_id=984828836]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -11.5
+offset_top = -35.0
+offset_right = 11.5
+grow_horizontal = 2
+grow_vertical = 0
 text = "99"
+label_settings = SubResource("LabelSettings_fqrda")
 horizontal_alignment = 1
-vertical_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1968647083]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+localize_numeral_system = false
+
+[node name="TextureRect2" type="TextureRect" parent="PanelContainer" unique_id=2095162467]
+layout_mode = 2
+texture = ExtResource("3_fqrda")
+expand_mode = 4

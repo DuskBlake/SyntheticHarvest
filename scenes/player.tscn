@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://byff8ydac0bbk" path="res://assets/Adam.png" id="3_qlg0r"]
 [ext_resource type="Script" uid="uid://bi22dux8yg4gy" path="res://scripts/sprite_view.gd" id="4_qlg0r"]
 [ext_resource type="Script" uid="uid://c01ah8ohusrq5" path="res://scripts/camera_controller.gd" id="5_qlg0r"]
+[ext_resource type="Script" uid="uid://v08kofx17dea" path="res://scripts/first_person_camera.gd" id="6_tuyoq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tuyoq"]
 atlas = ExtResource("3_qlg0r")
@@ -73,3 +74,6 @@ top_level = true
 transform = Transform3D(1, 0, 0, 0, 0.7073043, 0.70690936, 0, -0.70690936, 0.7073043, 0, 22.752304, 23.1748)
 current = true
 script = ExtResource("5_qlg0r")
+
+[node name="FirstPersonCamera" type="Camera3D" parent="Camera_pivot" unique_id=227242494]
+script = ExtResource("6_tuyoq")

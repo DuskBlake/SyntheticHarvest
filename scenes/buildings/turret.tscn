@@ -1,34 +1,43 @@
-[gd_scene format=3 uid="uid://doggvspgulon5"]
+[gd_scene format=3 uid="uid://d0w412ag1on00"]
 
-[ext_resource type="Script" uid="uid://b0p1hnhc4rwmi" path="res://scripts/building.gd" id="1_03wr4"]
-[ext_resource type="Material" uid="uid://bu1hlv08h7mb5" path="res://assets/materials/tree.tres" id="2_lmhib"]
-[ext_resource type="Script" uid="uid://crvk2we002jla" path="res://scripts/state_machine/state_machine.gd" id="3_xx6o0"]
-[ext_resource type="Script" uid="uid://dpysdtieofuv2" path="res://scripts/state_machine/Buildings/placing.gd" id="4_km213"]
-[ext_resource type="Material" uid="uid://bagfuxxoeyle5" path="res://assets/materials/valid_pos.tres" id="5_c83bs"]
-[ext_resource type="Material" uid="uid://rpq17v05wcdc" path="res://assets/materials/invalid_pos.tres" id="6_654ht"]
-[ext_resource type="Script" uid="uid://bpxfmm15wltf2" path="res://scripts/state_machine/Buildings/placed.gd" id="7_bvjhf"]
+[ext_resource type="Script" uid="uid://b0p1hnhc4rwmi" path="res://scripts/building.gd" id="1_1rjbu"]
+[ext_resource type="Script" uid="uid://bqg6ah0c0tugn" path="res://scripts/inventory/inventory_item.gd" id="2_q4bo2"]
+[ext_resource type="Resource" uid="uid://druri65hy0ixk" path="res://resources/inventory/items/wood.tres" id="3_5uk6n"]
+[ext_resource type="Material" uid="uid://bu1hlv08h7mb5" path="res://assets/materials/tree.tres" id="4_0lrda"]
+[ext_resource type="Script" uid="uid://crvk2we002jla" path="res://scripts/state_machine/state_machine.gd" id="5_ho8oe"]
+[ext_resource type="Script" uid="uid://dpysdtieofuv2" path="res://scripts/state_machine/Buildings/placing.gd" id="6_5w4r3"]
+[ext_resource type="Material" uid="uid://bagfuxxoeyle5" path="res://assets/materials/valid_pos.tres" id="7_7ky1f"]
+[ext_resource type="Material" uid="uid://rpq17v05wcdc" path="res://assets/materials/invalid_pos.tres" id="8_8glfy"]
+[ext_resource type="Script" uid="uid://bpxfmm15wltf2" path="res://scripts/state_machine/Buildings/placed.gd" id="9_b31w2"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_yu87e"]
 viewport_path = NodePath("InteractionUI/SubViewport")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_yu87e"]
-size = Vector3(8, 6, 4)
+size = Vector3(8, 6, 8)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qnv8b"]
-size = Vector3(10, 6, 10)
+size = Vector3(9, 6, 10)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_57vds"]
 size = Vector3(7, 6, 7)
 
-[sub_resource type="BoxMesh" id="BoxMesh_01spe"]
-size = Vector3(8, 8, 4)
+[sub_resource type="BoxMesh" id="BoxMesh_mqfwu"]
 
-[node name="Wall" type="StaticBody3D" unique_id=1026650262 node_paths=PackedStringArray("collision", "mesh", "trigger", "health") groups=["Building"]]
-script = ExtResource("1_03wr4")
+[sub_resource type="CylinderMesh" id="CylinderMesh_0dv4j"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_tg0ex"]
+
+[node name="Turret" type="StaticBody3D" unique_id=1026650262 node_paths=PackedStringArray("collision", "mesh", "trigger", "health") groups=["Building"]]
+collision_mask = 3
+script = ExtResource("1_1rjbu")
 collision = NodePath("Mesh")
 mesh = NodePath("MeshInstance3D")
 trigger = NodePath("Trigger/Trigger")
 health = NodePath("InteractionUI/SubViewport/VBoxContainer/ProgressBar")
+material_cost = Dictionary[ExtResource("2_q4bo2"), int]({
+ExtResource("3_5uk6n"): 8
+})
 
 [node name="InteractionUI" type="Sprite3D" parent="." unique_id=1226939051]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.21, 0)
@@ -79,7 +88,7 @@ theme_override_font_sizes/font_size = 150
 text = "Remove (X)"
 
 [node name="Mesh" type="CollisionShape3D" parent="." unique_id=1393656575]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 shape = SubResource("BoxShape3D_yu87e")
 
 [node name="UIArea" type="Area3D" parent="." unique_id=143680422]
@@ -95,29 +104,41 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 shape = SubResource("BoxShape3D_57vds")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1548575925]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -2)
+transform = Transform3D(8, 0, 0, 0, 2, 0, 0, 0, 8, 0, 1, 0)
 cast_shadow = 0
-mesh = SubResource("BoxMesh_01spe")
-surface_material_override/0 = ExtResource("2_lmhib")
+mesh = SubResource("BoxMesh_mqfwu")
+surface_material_override/0 = ExtResource("4_0lrda")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=22916249]
+transform = Transform3D(3, 0, 0, 0, 2, 0, 0, 0, 3, 0, 4, -1)
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_0dv4j")
+surface_material_override/0 = ExtResource("4_0lrda")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=639343475]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 8, 0, 7, 1)
+cast_shadow = 0
+mesh = SubResource("PrismMesh_tg0ex")
+surface_material_override/0 = ExtResource("4_0lrda")
 
 [node name="StateMachine" type="Node" parent="." unique_id=2099496149 node_paths=PackedStringArray("initial_state")]
-script = ExtResource("3_xx6o0")
+script = ExtResource("5_ho8oe")
 initial_state = NodePath("Placing")
 
 [node name="Placing" type="Node" parent="StateMachine" unique_id=741663099 node_paths=PackedStringArray("building")]
-script = ExtResource("4_km213")
+script = ExtResource("6_5w4r3")
 building = NodePath("../..")
-valid_material = ExtResource("5_c83bs")
-invalid_material = ExtResource("6_654ht")
+valid_material = ExtResource("7_7ky1f")
+invalid_material = ExtResource("8_8glfy")
 metadata/_custom_type_script = "uid://dpysdtieofuv2"
 
 [node name="Timer" type="Timer" parent="StateMachine/Placing" unique_id=1038757920]
 wait_time = 0.5
 
 [node name="Placed" type="Node" parent="StateMachine" unique_id=797993399 node_paths=PackedStringArray("building", "ui")]
-script = ExtResource("7_bvjhf")
+script = ExtResource("9_b31w2")
 building = NodePath("../..")
-placed = ExtResource("2_lmhib")
+placed = ExtResource("4_0lrda")
 ui = NodePath("../../InteractionUI")
 metadata/_custom_type_script = "uid://bpxfmm15wltf2"
 

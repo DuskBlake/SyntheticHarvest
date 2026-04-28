@@ -7,7 +7,7 @@ class_name LevelManager
 
 @export var day_length: float = 10
 
-static  var is_day: bool = false
+static var is_day: bool = false
 var extractor:Node3D
 
 var duration_multiplier = 1
@@ -21,7 +21,7 @@ func _ready() -> void:
 
 func  _process(delta: float) -> void:
 	if animation_player.current_animation:
-		if animation_player.current_animation_position > 7 && animation_player.current_animation_position < 19:
+		if animation_player.current_animation_position > 15 && animation_player.current_animation_position < 21:
 			is_day = false
 		else: is_day = true
 	if !extractor:

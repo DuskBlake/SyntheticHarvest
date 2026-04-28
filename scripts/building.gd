@@ -4,6 +4,7 @@ extends StaticBody3D
 @export var mesh: MeshInstance3D
 @export var trigger: CollisionShape3D
 @export var health: ProgressBar
+@export var material_cost: Dictionary[InvItem,int]
 
 var placed: bool = false
 var player_in_area: bool

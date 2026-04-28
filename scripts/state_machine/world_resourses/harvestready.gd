@@ -18,15 +18,12 @@ func enter() -> void:
 	world_resource.progress_bar.value = 0
 
 func update(_delta: float) -> void:
-	if world_resource.player_in_area:
-		world_resource.interaction_ui.visible = true
-		if Input.is_action_pressed("interact"):
-			world_resource.progress_bar.value += 100 / harvest_time * _delta
-			if world_resource.progress_bar.value >= 100:
-				world_resource.player.collect(world_resource.item)
-				item_amount -= 1
-				world_resource.progress_bar.value = 0
-	else : world_resource.interaction_ui.visible = false
-	
+	if Input.is_action_pressed("interact"):
+		world_resource.progress_bar.value += 100 / harvest_time * _delta
+		if world_resource.progress_bar.value >= 100:
+			world_resource.player.collect(world_resource.item)
+			item_amount -= 1
+			world_resource.progress_bar.value = 0
+
 	if item_amount <= 0 :
 		transitioned.emit(self, "regrow")
