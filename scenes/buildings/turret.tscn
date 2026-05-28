@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://bqg6ah0c0tugn" path="res://scripts/inventory/inventory_item.gd" id="2_q4bo2"]
 [ext_resource type="Resource" uid="uid://druri65hy0ixk" path="res://resources/inventory/items/wood.tres" id="3_5uk6n"]
 [ext_resource type="Material" uid="uid://bu1hlv08h7mb5" path="res://assets/materials/tree.tres" id="4_0lrda"]
+[ext_resource type="Script" uid="uid://s7j27tcvpn8t" path="res://scripts/turret_behaviour.gd" id="4_q4bo2"]
+[ext_resource type="PackedScene" uid="uid://d1lyv80lhiss0" path="res://scenes/bullet.tscn" id="5_5uk6n"]
 [ext_resource type="Script" uid="uid://crvk2we002jla" path="res://scripts/state_machine/state_machine.gd" id="5_ho8oe"]
 [ext_resource type="Script" uid="uid://dpysdtieofuv2" path="res://scripts/state_machine/Buildings/placing.gd" id="6_5w4r3"]
 [ext_resource type="Material" uid="uid://bagfuxxoeyle5" path="res://assets/materials/valid_pos.tres" id="7_7ky1f"]
@@ -28,6 +30,10 @@ size = Vector3(7, 6, 7)
 
 [sub_resource type="PrismMesh" id="PrismMesh_tg0ex"]
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_q4bo2"]
+height = 6.0
+radius = 32.0
+
 [node name="Turret" type="StaticBody3D" unique_id=1026650262 node_paths=PackedStringArray("collision", "mesh", "trigger", "health") groups=["Building"]]
 collision_mask = 3
 script = ExtResource("1_1rjbu")
@@ -38,6 +44,15 @@ health = NodePath("InteractionUI/SubViewport/VBoxContainer/ProgressBar")
 material_cost = Dictionary[ExtResource("2_q4bo2"), int]({
 ExtResource("3_5uk6n"): 8
 })
+
+[node name="Turret behaviour" type="Node" parent="." unique_id=1119234686 node_paths=PackedStringArray("turret", "raycast", "timer")]
+script = ExtResource("4_q4bo2")
+bullet = ExtResource("5_5uk6n")
+turret = NodePath("..")
+raycast = NodePath("../MeshInstance3D3/RayCast3D")
+timer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="Turret behaviour" unique_id=905899631]
 
 [node name="InteractionUI" type="Sprite3D" parent="." unique_id=1226939051]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.21, 0)
@@ -116,10 +131,16 @@ mesh = SubResource("CylinderMesh_0dv4j")
 surface_material_override/0 = ExtResource("4_0lrda")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=639343475]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 8, 0, 7, 1)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 8, 0, 7, -1.0718904)
 cast_shadow = 0
 mesh = SubResource("PrismMesh_tg0ex")
 surface_material_override/0 = ExtResource("4_0lrda")
+
+[node name="RayCast3D" type="RayCast3D" parent="MeshInstance3D3" unique_id=813125614]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.125, 0, -0.12709236, 0.005684793)
+target_position = Vector3(0, 0, 0)
+debug_shape_custom_color = Color(0, 0.6392157, 0.44705883, 1)
+debug_shape_thickness = 5
 
 [node name="StateMachine" type="Node" parent="." unique_id=2099496149 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("5_ho8oe")
@@ -142,8 +163,17 @@ placed = ExtResource("4_0lrda")
 ui = NodePath("../../InteractionUI")
 metadata/_custom_type_script = "uid://bpxfmm15wltf2"
 
+[node name="Area3D" type="Area3D" parent="." unique_id=1150679947]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=845931361]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("CylinderShape3D_q4bo2")
+
+[connection signal="timeout" from="Turret behaviour/Timer" to="Turret behaviour" method="_on_timer_timeout"]
 [connection signal="body_entered" from="UIArea" to="." method="_on_ui_area_body_entered"]
 [connection signal="body_exited" from="UIArea" to="." method="_on_ui_area_body_exited"]
 [connection signal="body_entered" from="Trigger" to="StateMachine/Placing" method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Trigger" to="StateMachine/Placing" method="_on_area_3d_body_exited"]
 [connection signal="timeout" from="StateMachine/Placing/Timer" to="StateMachine/Placing" method="_on_timer_timeout"]
+[connection signal="body_entered" from="Area3D" to="Turret behaviour" method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="Turret behaviour" method="_on_area_3d_body_exited"]

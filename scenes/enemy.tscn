@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://d18pp03rqnvju"]
+
+[ext_resource type="Script" uid="uid://dl0aor8hgp6g3" path="res://scripts/enemy.gd" id="1_7p1mj"]
+[ext_resource type="Script" uid="uid://crvk2we002jla" path="res://scripts/state_machine/state_machine.gd" id="2_md0e3"]
+[ext_resource type="Script" uid="uid://bth1h1k31c1xs" path="res://scripts/state_machine/Enemy/decay.gd" id="3_5uy6h"]
+[ext_resource type="Script" uid="uid://pmkg6hg8qrtk" path="res://scripts/state_machine/Enemy/attacking.gd" id="4_c4w8v"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4gyqm"]
+albedo_color = Color(1, 0.44705883, 0.34117648, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_qi2p4"]
+material = SubResource("StandardMaterial3D_4gyqm")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_iifgy"]
+
+[node name="Enemy" type="CharacterBody3D" unique_id=1321207205 groups=["Enemy"]]
+script = ExtResource("1_7p1mj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=175134115]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_qi2p4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1792081953]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_iifgy")
+
+[node name="StateMachine" type="Node" parent="." unique_id=1313353138 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_md0e3")
+initial_state = NodePath("Attacking")
+
+[node name="Decay" type="Node" parent="StateMachine" unique_id=666886980 node_paths=PackedStringArray("enemy")]
+script = ExtResource("3_5uy6h")
+enemy = NodePath("../..")
+metadata/_custom_type_script = "uid://bth1h1k31c1xs"
+
+[node name="Attacking" type="Node" parent="StateMachine" unique_id=478419025]
+script = ExtResource("4_c4w8v")
+metadata/_custom_type_script = "uid://pmkg6hg8qrtk"
+
+[node name="Timer" type="Timer" parent="." unique_id=322237733]
+wait_time = 0.1
+one_shot = true
+
+[node name="Burn" type="Timer" parent="." unique_id=188094802]
+wait_time = 0.2
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Burn" to="StateMachine/Decay" method="_on_burn_timeout"]

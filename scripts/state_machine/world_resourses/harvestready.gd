@@ -18,7 +18,7 @@ func enter() -> void:
 	world_resource.progress_bar.value = 0
 
 func update(_delta: float) -> void:
-	if Input.is_action_pressed("interact"):
+	if Input.is_action_pressed("interact") && world_resource.player_in_area:
 		world_resource.progress_bar.value += 100 / harvest_time * _delta
 		if world_resource.progress_bar.value >= 100:
 			world_resource.player.collect(world_resource.item)

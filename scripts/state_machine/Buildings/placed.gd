@@ -22,8 +22,14 @@ func update(_delta: float) -> void:
 		repairing= true
 	
 	if repairing && building.health.value < 100:
+		building.player.inv.slots[0].amount -= building.material_cost.get(preload("res://resources/inventory/items/wood.tres"))/3
 		building.health.value += 100 / 15 * _delta
 	else: repairing = false
 	
-	if building.health.value <= 0 or Input.is_action_just_pressed("remove_building")&& building.player_in_area && !building.is_in_group("Extractor"):
+	if building.health.value <= 0 && building.player_in_area && !building.is_in_group("Extractor"):
+		building.queue_free()
+	
+	if Input.is_action_just_pressed("remove_building") && building.player_in_area && !building.is_in_group("Extractor"):
+		building.player.inv.slots[0].amount += building.material_cost.get(preload("res://resources/inventory/items/wood.tres"))/3
+		building.player.inv.update.emit()
 		building.queue_free()

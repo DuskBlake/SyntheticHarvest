@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dpysdtieofuv2" path="res://scripts/state_machine/Buildings/placing.gd" id="7_xer1y"]
 [ext_resource type="Material" uid="uid://bagfuxxoeyle5" path="res://assets/materials/valid_pos.tres" id="8_whcm6"]
 [ext_resource type="Material" uid="uid://rpq17v05wcdc" path="res://assets/materials/invalid_pos.tres" id="9_k5lpi"]
+[ext_resource type="Script" uid="uid://cb2sa61ltth7v" path="res://scripts/spikes_behaviour.gd" id="10_4mmii"]
 [ext_resource type="Script" uid="uid://bpxfmm15wltf2" path="res://scripts/state_machine/Buildings/placed.gd" id="10_8ml7e"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_yu87e"]
@@ -127,8 +128,17 @@ placed = ExtResource("5_br8oj")
 ui = NodePath("../../InteractionUI")
 metadata/_custom_type_script = "uid://bpxfmm15wltf2"
 
+[node name="Spikes behaviour" type="Node" parent="." unique_id=1133660339]
+script = ExtResource("10_4mmii")
+
+[node name="cooldown" type="Timer" parent="Spikes behaviour" unique_id=629710363]
+wait_time = 0.3
+
 [connection signal="body_entered" from="UIArea" to="." method="_on_ui_area_body_entered"]
 [connection signal="body_exited" from="UIArea" to="." method="_on_ui_area_body_exited"]
 [connection signal="body_entered" from="Trigger" to="StateMachine/Placing" method="_on_area_3d_body_entered"]
+[connection signal="body_entered" from="Trigger" to="Spikes behaviour" method="_on_trigger_body_entered"]
 [connection signal="body_exited" from="Trigger" to="StateMachine/Placing" method="_on_area_3d_body_exited"]
+[connection signal="body_exited" from="Trigger" to="Spikes behaviour" method="_on_trigger_body_exited"]
 [connection signal="timeout" from="StateMachine/Placing/Timer" to="StateMachine/Placing" method="_on_timer_timeout"]
+[connection signal="timeout" from="Spikes behaviour/cooldown" to="Spikes behaviour" method="_on_cooldown_timeout"]

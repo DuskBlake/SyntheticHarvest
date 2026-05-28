@@ -8,12 +8,12 @@ extends StaticBody3D
 
 var placed: bool = false
 var player_in_area: bool
-
+var player:CharacterBody3D
 
 func _on_ui_area_body_entered(body: Node3D) -> void:
 	if body.is_in_group("Player"):
+		player = body
 		player_in_area = true
-
 
 func _on_ui_area_body_exited(body: Node3D) -> void:
 	if body.is_in_group("Player"):
